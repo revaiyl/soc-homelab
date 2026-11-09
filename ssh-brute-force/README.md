@@ -17,13 +17,23 @@ Linux OS (Linux-PC) IP address: 192.168.1.13 Purpose: Target system
 
 First, I pinged the Linux OS from Kali Linux to check if the target machine was reachable. After confirming the connection, I performed a controlled authentication failure simulation by entering an incorrect password six (6) times when attempting to connect through SSH.
 
+![Network Connectivity](screenshots/01-network-connectivity.png.png)
+
+After confirming the connection, I verified that the SSH service was running and listening on port 22
+
+![SSH Service](screenshots/05-ssh-service-verification.png.png)
+
 The attempts generated authentication failure events in the Linux system logs and Wazuh SIEM. Wazuh recorded individual SSH authentication failures under Rule ID `5760` and repeated password failures under Rule ID `2502`. This confirmed that the authentication events were successfully collected and detected for further investigation.
 
 ## 4. Detection and Evidence
 
 The detection was verified through the Linux system logs and Wazuh Dashboard. The Linux authentication logs showed that the source IP address was `192.168.1.9`, which attempted to authenticate using the `vboxuser` account.
 
+![Linux Authentication Logs](screenshots/02-linux-authentication-logs.png.png)
+
 The Wazuh Dashboard also displayed the corresponding authentication failure events. Rule ID `5760` recorded SSH authentication failures, while Rule ID `2502` identified repeated password failures with a severity level of 10. This higher severity indicates that the event requires further investigation and review.
+
+![Wazuh Recorded Events](screenshots/03-wazuh-detection-events.png.png)
 
 ## 5. Investigation and Analysis
 
@@ -33,6 +43,8 @@ The Wazuh Dashboard also displayed the corresponding authentication failure even
 - **Meaning of Rules 5760 and 2502:** Rule 5760 identifies an SSH authentication failure, while Rule 2502 identifies repeated password failures.
 - **Why the Activity Was Suspicious:** Multiple authentication failures were recorded from the same source IP address against the same user account within a short period. Wazuh also generated a higher-severity alert (Level 10), indicating that the activity required further investigation.
 - **How Linux Logs and Wazuh Events Correlated:** The Linux system logs recorded the original SSH authentication failures, while Wazuh collected and processed the corresponding events. The source IP address and targeted username were consistent across the evidence, confirming that Wazuh successfully detected the simulated activity.
+
+![Wazuh Alert Details](screenshots/04-wazuh-alert-details.png.png)
 
 ## 6. Findings and Conclusion
 
