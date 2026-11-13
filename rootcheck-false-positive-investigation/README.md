@@ -27,6 +27,8 @@ While checking the events in Wazuh Dashboard, I found a Rootcheck alert from the
 - Flagged File: `/usr/bin/md5sum`
 - Detection: Trojaned version of file detected
 
+![Wazuh Rootcheck Alert](screenshots/01-wazuh-rootcheck-alert.png)
+
 The alert indicated that the file matched a generic suspicious signature. Because of this, I decided to investigate the file before considering it a possible malware infection.
 
 ## 4. Investigation and Evidence
@@ -114,6 +116,8 @@ grep -i "rust-coreutils" /var/log/dpkg.log
 ```
 
 No matching entries were found in the current log. Therefore, I could not determine the package's installation date using this command.
+
+![Terminal Investigation Evidence](screenshots/02-investigation-terminal-evidence.png)
 
 ## 5. Investigation and Analysis
 
