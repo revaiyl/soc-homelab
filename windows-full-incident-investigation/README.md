@@ -30,6 +30,8 @@ net user SOC_TestUser LabTest@2026! /add
 
 The command completed successfully and created the account.
 
+![Account Creation](screenshot/01-account-creation.png)
+
 ### 3.2 Checking the Account Creation Event in Wazuh
 
 After creating the account, I opened Wazuh Dashboard and searched for Windows Event ID `4720`.
@@ -44,6 +46,8 @@ Wazuh detected the activity with the following details:
 - Computer: DESKTOP-7L9MR8R
 
 This event confirmed that the new account was successfully created and identified the user responsible for the action.
+
+![Wazuh Event](screenshot/02-wazuh-event-4720.png)
 
 ### 3.3 Adding the Account to the Administrators Group
 
@@ -60,6 +64,8 @@ Add-LocalGroupMember -Group "Administrators" -Member "SOC_TestUser"
 The command did not display a success message, but it returned to the PowerShell prompt without an error.
 
 I verified the account's group memberships and confirmed that `SOC_TestUser` was a member of both the Users and Administrators groups.
+
+![Member Verification](screenshot/03-group-membership-verification.png)
 
 ### 3.4 Investigating the Group Membership Change
 
@@ -82,6 +88,10 @@ The event details included:
 The member SID matched the SID of `SOC_TestUser`.
 
 This confirmed that the account was successfully added to the Administrators group.
+
+![User Group](screenshot/04-wazuh-users-group-event.png)
+
+![Administrator Group](screenshot/05-wazuh-administrators-group-event.png)
 
 ## 4. Detection and Evidence
 
