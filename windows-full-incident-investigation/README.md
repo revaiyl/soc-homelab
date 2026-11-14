@@ -1,4 +1,4 @@
-# Windows Lab 10 — Full Incident Investigation
+Full Incident Investigation
 
 ## 1. Objective
 
