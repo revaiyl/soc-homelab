@@ -1,4 +1,4 @@
-Full Incident Investigation
+# Windows Security Event Investigation: Account Creation and Privilege Escalation
 
 ## 1. Objective
 
